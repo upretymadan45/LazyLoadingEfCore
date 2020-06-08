@@ -66,6 +66,9 @@ namespace LazyLoading.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("SensorName")
                         .HasColumnType("nvarchar(max)");
 
@@ -80,12 +83,14 @@ namespace LazyLoading.Data.Migrations
                         new
                         {
                             Id = -1,
+                            CreatedAt = new DateTime(2020, 6, 8, 17, 24, 7, 731, DateTimeKind.Local).AddTicks(7176),
                             SensorName = "LM35",
                             SensorType = "Temperature"
                         },
                         new
                         {
                             Id = -2,
+                            CreatedAt = new DateTime(2020, 6, 8, 17, 24, 7, 733, DateTimeKind.Local).AddTicks(9063),
                             SensorName = "Smoke",
                             SensorType = "Smoke"
                         });

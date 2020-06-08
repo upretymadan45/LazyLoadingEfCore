@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using LazyLoading.Models;
 using LazyLoading.Data;
-using Microsoft.EntityFrameworkCore;
 
 namespace LazyLoading.Controllers
 {
@@ -21,7 +20,30 @@ namespace LazyLoading.Controllers
 
         public IActionResult Index()
         {
-            return Ok(_context.Sensors.ToList());
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+            
+            var sensors = _context.Sensors.ToList();
+
+            //var sensors = _context.Sensors.Select(s => new Sensor
+            //{
+            //    Id = s.Id,
+            //    SensorName = s.SensorName,
+            //    SensorType = s.SensorType
+            //}).ToList() ;
+
+            stopwatch.Stop();
+
+            var timeElapsed = stopwatch.Elapsed;
+
+            ViewBag.TimeTaken = timeElapsed.TotalSeconds + " seconds";
+
+            return View(sensors);
+
+            //1. Disable lazy loading
+            //2. Load selected columns
+            //3. Disable query tracking
+
         }
 
         public IActionResult Privacy()
